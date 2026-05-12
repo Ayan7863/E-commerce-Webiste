@@ -7,9 +7,9 @@ import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { api } from '@/lib/api'
 
 export default function AdminContacts() {
-  const [contacts, setContacts] = useState([])
+  const [contacts, setContacts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedContact, setSelectedContact] = useState(null)
+  const [selectedContact, setSelectedContact] = useState<any>(null)
 
   useEffect(() => {
     fetchContacts()

@@ -34,12 +34,13 @@ A premium e-commerce website for luxury perfumes, attars, and oud fragrances bui
 - **Icons**: Lucide React
 - **Theme**: Next-themes for dark/light mode
 - **TypeScript**: Full type safety
+- **Database**: MongoDB Atlas with Mongoose
 
 ## 📦 Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ayan7863/E-commerce-Webiste.git
    cd moonlight
    ```
 
@@ -48,12 +49,20 @@ A premium e-commerce website for luxury perfumes, attars, and oud fragrances bui
    npm install
    ```
 
-3. **Run the development server**
+3. **Set up environment variables**
+   Create a `.env.local` file and add:
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   NEXTAUTH_SECRET=your_secret_key
+   NEXTAUTH_URL=http://localhost:3000
+   ```
+
+4. **Run the development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 🎯 Project Structure
@@ -61,67 +70,26 @@ A premium e-commerce website for luxury perfumes, attars, and oud fragrances bui
 ```
 moonlight/
 ├── app/                    # Next.js 14 App Router
+│   ├── api/               # API routes (backend)
+│   ├── admin/             # Admin dashboard
 │   ├── globals.css        # Global styles
 │   ├── layout.tsx         # Root layout
-│   ├── page.tsx          # Homepage
-│   ├── products/         # Products page
-│   └── cart/             # Shopping cart page
+│   └── page.tsx           # Homepage
 ├── components/            # React components
-│   ├── HeroSection.tsx   # Homepage hero
-│   ├── Navbar.tsx        # Navigation
-│   ├── Footer.tsx        # Footer
-│   ├── BestSellers.tsx   # Best sellers grid
-│   ├── ProductGrid.tsx   # Product listing
-│   └── ShoppingCart.tsx  # Cart functionality
-├── lib/                  # Utility functions
-├── public/               # Static assets
-└── tailwind.config.js    # Tailwind configuration
+├── lib/                   # Utility functions & DB connection
+├── public/                # Static assets
+└── tailwind.config.js     # Tailwind configuration
 ```
 
 ## 🎨 Theme Configuration
 
-The website supports two luxury themes:
-
-### Light Theme (Default)
+### Light Theme
 - **Primary**: Cream (#F5F5DC)
 - **Accent**: Rose Gold (#E8B4B8)
-- **Background**: Luxury cream tones
 
 ### Dark Theme
 - **Primary**: Black (#000000)
 - **Accent**: Gold (#FFD700)
-- **Background**: Dark luxury tones
-
-## 🛠️ Customization
-
-### Adding New Products
-Edit the product arrays in:
-- `components/BestSellers.tsx`
-- `components/ProductGrid.tsx`
-
-### Modifying Colors
-Update the color scheme in `tailwind.config.js`:
-```javascript
-colors: {
-  luxury: {
-    cream: '#F5F5DC',
-    rosegold: '#E8B4B8',
-    gold: '#FFD700',
-    black: '#000000',
-    darkgray: '#1a1a1a',
-  }
-}
-```
-
-### Adding New Pages
-Create new pages in the `app/` directory following Next.js 14 App Router conventions.
-
-## 📱 Responsive Design
-
-The website is fully responsive with breakpoints:
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
 
 ## 🔧 Development Scripts
 
@@ -134,30 +102,7 @@ npm run lint     # Run ESLint
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
-
-### Other Platforms
-- **Netlify**: For static deployment
-- **Railway**: For full-stack deployment
-- **Heroku**: For backend integration
-
-## 🔮 Future Enhancements
-
-### Backend Integration
-- **Database**: MongoDB for products, users, orders
-- **Authentication**: JWT-based login with Google sign-in
-- **Payment Processing**: Razorpay and Stripe integration
-- **Admin Dashboard**: Product and order management
-
-### Additional Features
-- **User Accounts**: Registration, login, profile management
-- **Wishlist**: Save favorite products
-- **Order History**: Track past purchases
-- **Reviews System**: Customer feedback and ratings
-- **SEO Optimization**: Meta tags and schema markup
+Deployed on **Vercel** — [Live Demo](https://your-vercel-url.vercel.app)
 
 ## 📞 Business Information
 
@@ -168,10 +113,6 @@ npm run lint     # Run ESLint
 ## 📄 License
 
 This project is created for Moonlight Attar & Perfumes. All rights reserved.
-
-## 🤝 Contributing
-
-This is a custom project for a specific business. For modifications or enhancements, please contact the development team.
 
 ---
 
