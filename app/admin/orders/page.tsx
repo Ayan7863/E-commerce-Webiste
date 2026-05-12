@@ -5,14 +5,16 @@ import { motion } from 'framer-motion'
 import { Eye, Package, Truck, CheckCircle, Clock } from 'lucide-react'
 import { api } from '@/lib/api'
 
-const statusColors = {
+type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered'
+
+const statusColors: Record<OrderStatus, string> = {
   'Pending': 'bg-yellow-100 text-yellow-800',
   'Processing': 'bg-blue-100 text-blue-800',
   'Shipped': 'bg-purple-100 text-purple-800',
   'Delivered': 'bg-green-100 text-green-800'
 }
 
-const statusIcons = {
+const statusIcons: Record<OrderStatus, any> = {
   'Pending': Clock,
   'Processing': Package,
   'Shipped': Truck,
@@ -20,9 +22,9 @@ const statusIcons = {
 }
 
 export default function AdminOrders() {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedOrder, setSelectedOrder] = useState(null)
+  const [selectedOrder, setSelectedOrder] = useState<any>(null)
 
   useEffect(() => {
     fetchOrders()
@@ -63,7 +65,7 @@ export default function AdminOrders() {
 
         {/* Order Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {Object.entries(statusColors).map(([status, colorClass]) => {
+          {(Object.entries(statusColors) as [OrderStatus, string][]).map(([status, colorClass]) => {
             const count = Array.isArray(orders) ? orders.filter(order => order.status === status).length : 0
             const Icon = statusIcons[status]
             return (
@@ -121,7 +123,7 @@ export default function AdminOrders() {
                     <td className="px-6 py-4">{order.items.length} items</td>
                     <td className="px-6 py-4 font-semibold">₹{order.total.toLocaleString()}</td>
                     <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[order.status]}`}>
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[order.status as OrderStatus]}`}>
                         {order.status}
                       </span>
                     </td>
@@ -176,7 +178,7 @@ export default function AdminOrders() {
                 <div>
                   <p className="font-medium mb-2">Items:</p>
                   <ul className="space-y-1">
-                    {selectedOrder.items.map((item, index) => (
+                    {selectedOrder.items.map((item: any, index: number) => (
                       <li key={index} className="text-gray-600 flex justify-between">
                         <span>• {item.name} ({item.size})</span>
                         <span>₹{item.price} × {item.quantity}</span>
@@ -198,7 +200,7 @@ export default function AdminOrders() {
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium">Status:</span>
-                  <span className={`px-3 py-1 rounded-full text-sm ${statusColors[selectedOrder.status]}`}>
+                  <span className={`px-3 py-1 rounded-full text-sm ${statusColors[selectedOrder.status as OrderStatus]}`}>
                     {selectedOrder.status}
                   </span>
                 </div>

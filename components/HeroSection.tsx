@@ -9,7 +9,7 @@ import { api } from '@/lib/api'
 
 export function HeroSection() {
   const [currentProduct, setCurrentProduct] = useState(0)
-  const [heroProducts, setHeroProducts] = useState([])
+  const [heroProducts, setHeroProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function HeroSection() {
     setLoading(false)
   }
 
-  const getBadge = (product) => {
+  const getBadge = (product: any) => {
     if (product.isBestSeller) return 'BESTSELLER'
     if (product.originalPrice && product.originalPrice > product.price) {
       const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)

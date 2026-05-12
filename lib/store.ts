@@ -4,7 +4,8 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 export interface Product {
-  id: number
+  _id: string
+  id?: string
   name: string
   size: string
   price: number
@@ -12,6 +13,15 @@ export interface Product {
   image: string
   category: string
   notes: string[]
+  rating?: number
+  reviews?: number
+  isBestSeller?: boolean
+  isFeatured?: boolean
+  isHeroCarousel?: boolean
+  status?: string
+  stock?: number
+  description?: string
+  subCategory?: string
 }
 
 export interface CartItem extends Product {
@@ -21,8 +31,8 @@ export interface CartItem extends Product {
 interface CartStore {
   items: CartItem[]
   addItem: (product: Product) => void
-  removeItem: (id: number) => void
-  updateQuantity: (id: number, quantity: number) => void
+  removeItem: (id: string) => void
+  updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
   getTotalItems: () => number
   getTotalPrice: () => number
@@ -35,12 +45,12 @@ export const useCartStore = create<CartStore>()(
       
       addItem: (product) => {
         const items = get().items
-        const existingItem = items.find(item => item.id === product.id)
+        const existingItem = items.find(item => item._id === product._id)
         
         if (existingItem) {
           set({
             items: items.map(item =>
-              item.id === product.id
+              item._id === product._id
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
             )
@@ -54,7 +64,7 @@ export const useCartStore = create<CartStore>()(
       
       removeItem: (id) => {
         set({
-          items: get().items.filter(item => item.id !== id)
+          items: get().items.filter(item => item._id !== id)
         })
       },
       
@@ -66,7 +76,7 @@ export const useCartStore = create<CartStore>()(
         
         set({
           items: get().items.map(item =>
-            item.id === id ? { ...item, quantity } : item
+            item._id === id ? { ...item, quantity } : item
           )
         })
       },

@@ -9,12 +9,12 @@ import { QuickEdit } from '@/components/QuickEdit'
 import { ImageManager } from '@/components/ImageManager'
 
 export default function AdminProducts() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [showAddForm, setShowAddForm] = useState(false)
-  const [editingProduct, setEditingProduct] = useState(null)
-  const [quickEditProduct, setQuickEditProduct] = useState(null)
-  const [imageEditProduct, setImageEditProduct] = useState(null)
+  const [editingProduct, setEditingProduct] = useState<any>(null)
+  const [quickEditProduct, setQuickEditProduct] = useState<any>(null)
+  const [imageEditProduct, setImageEditProduct] = useState<any>(null)
   const [newProduct, setNewProduct] = useState({
     name: '', category: '', subCategory: '', size: '', price: '', stock: '', description: '', notes: ''
   })
@@ -63,17 +63,18 @@ export default function AdminProducts() {
       }
     } catch (error) {
       console.error('Failed to add product:', error)
-      alert('Failed to add product: ' + error.message)
+      alert('Failed to add product: ' + (error as any).message)
     }
   }
 
-  const handleEdit = (productId) => {
-    const product = products.find(p => p._id === productId)
+  const handleEdit = (productId: any) => {
+    const product = products.find((p: any) => p._id === productId)
     if (product) {
       setEditingProduct(product)
       setNewProduct({
         name: product.name,
         category: product.category,
+        subCategory: product.subCategory || '',
         size: product.size,
         price: product.price.toString(),
         stock: product.stock.toString(),
@@ -93,14 +94,14 @@ export default function AdminProducts() {
       }
       await api.updateProduct(editingProduct._id, productData)
       setEditingProduct(null)
-      setNewProduct({ name: '', category: '', size: '', price: '', stock: '', description: '', notes: '' })
+      setNewProduct({ name: '', category: '', subCategory: '', size: '', price: '', stock: '', description: '', notes: '' })
       fetchProducts()
     } catch (error) {
       console.error('Failed to update product:', error)
     }
   }
 
-  const handleDelete = async (productId) => {
+  const handleDelete = async (productId: any) => {
     if (confirm('Are you sure you want to delete this product?')) {
       try {
         await api.deleteProduct(productId)
@@ -195,7 +196,7 @@ export default function AdminProducts() {
                           <div className="flex items-center space-x-2">
                             <span className="font-medium">{product.name}</span>
                             {product.isBestSeller && (
-                              <Star className="w-4 h-4 text-yellow-500 fill-current" title="Best Seller" />
+                              <Star className="w-4 h-4 text-yellow-500 fill-current" />
                             )}
                             {product.isFeatured && (
                               <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Featured</span>

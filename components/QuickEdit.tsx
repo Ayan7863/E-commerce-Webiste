@@ -40,7 +40,7 @@ export function QuickEdit({ product, onClose, onUpdate }: QuickEditProps) {
       }
     } catch (error) {
       console.error('Failed to update product:', error)
-      alert('Failed to update product: ' + error.message)
+      alert('Failed to update product: ' + (error as any).message)
     }
     setLoading(false)
   }

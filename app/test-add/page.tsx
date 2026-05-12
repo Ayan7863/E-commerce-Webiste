@@ -25,7 +25,7 @@ export default function TestAdd() {
       const data = await response.json()
       setResult(JSON.stringify(data, null, 2))
     } catch (error) {
-      setResult('Error: ' + error.message)
+      setResult('Error: ' + (error as any).message)
     }
     setLoading(false)
   }

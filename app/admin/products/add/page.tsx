@@ -85,7 +85,7 @@ export default function AddProductPage() {
       }
     } catch (error) {
       console.error('Failed to create product:', error)
-      alert('Failed to create product: ' + (error.message || 'Network error'))
+      alert('Failed to create product: ' + ((error as any).message || 'Network error'))
     }
     setLoading(false)
   }

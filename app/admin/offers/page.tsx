@@ -6,7 +6,7 @@ import { Plus, Edit, Trash2, Tag, Percent } from 'lucide-react'
 import { api } from '@/lib/api'
 
 export default function AdminOffers() {
-  const [offers, setOffers] = useState([])
+  const [offers, setOffers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [showAddForm, setShowAddForm] = useState(false)
   const [newOffer, setNewOffer] = useState({
